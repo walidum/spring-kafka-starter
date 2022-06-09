@@ -4,12 +4,7 @@ logging:
 spring:
   application:
     name: spring-kafka
-  kafka:
-    bootstrap-servers: 1
-    consumer:
-      auto-offset-reset: earliest
-      value-deserializer: 1
-    producer:
-      value-serializer: 1
 server:
   port: 8080
+topic:
+  name: kafka-stream-prod-user-infos
