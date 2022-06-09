@@ -24,11 +24,12 @@ public class UserController {
     public ResponseEntity addUser(@RequestBody UserRequest request) {
 
         kafkaPublisherService.send(mapTo(request));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("User sent successfully !");
     }
 
     @GetMapping("{id}")
     public ResponseEntity<UserDto> find(@PathVariable("id") final long id) {
+
         var user = kafkaListenerService.findById(id);
         return ResponseEntity.ok(user);
     }
