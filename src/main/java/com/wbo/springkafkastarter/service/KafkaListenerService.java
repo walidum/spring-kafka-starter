@@ -35,5 +35,7 @@ public class KafkaListenerService {
                         userDto -> userDto.getComptes().stream().mapToDouble(value -> value.getAmount()).sum()));
     }
 
-
+    public ConcurrentHashMap<Long, UserDto> getData() {
+        return data;
+    }
 }
