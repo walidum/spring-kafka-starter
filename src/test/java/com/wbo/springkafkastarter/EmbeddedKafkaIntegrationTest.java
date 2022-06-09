@@ -6,6 +6,7 @@ import com.wbo.springkafkastarter.service.KafkaListenerService;
 import com.wbo.springkafkastarter.service.KafkaPublisherService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
@@ -28,6 +29,8 @@ class EmbeddedKafkaIntegrationTest {
     @Autowired
     private KafkaListenerService consumer;
 
+    @Value("${topic.name}")
+    private String topicName;
 
     @Test
     public void whenSendingOneMessageToProducer_thenMessageReceived()
@@ -41,6 +44,7 @@ class EmbeddedKafkaIntegrationTest {
         assertThat(consumer.getData().values().stream().findFirst().get().getName(), equalTo("Adem 1"));
         assertThat(consumer.getData().values().stream().findFirst().get().getComptes().size(), equalTo(2));
 
+        assertThat(topicName, equalTo("kafka-stream-test-user-infos"));
 
     }
 
