@@ -1,14 +1,13 @@
 package com.wbo.springkafkastarter.service;
 
 import com.wbo.springkafkastarter.dtos.UserDto;
-import com.wbo.springkafkastarter.dtos.UserResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -30,9 +29,10 @@ public class KafkaListenerService {
         return exist.isPresent() ? data.get(exist.get()) : null;
     }
 
-    public List<UserResponse> total() {
+    public Map<Long, Double> total() {
         return data.values().stream()
-                .map(userDto -> new UserResponse(userDto, userDto.getComptes().stream().mapToDouble(value -> value.getAmount()).sum())).collect(Collectors.toList());
+                .collect(Collectors.toMap(UserDto::getId,
+                        userDto -> userDto.getComptes().stream().mapToDouble(value -> value.getAmount()).sum()));
     }
 
 
