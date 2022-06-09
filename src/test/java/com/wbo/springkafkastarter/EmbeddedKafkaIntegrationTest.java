@@ -33,7 +33,7 @@ class EmbeddedKafkaIntegrationTest {
     private String topicName;
 
     @Test
-    public void whenSendingOneMessageToProducer_thenMessageReceived()
+    public void simpleTest()
             throws Exception {
         producer.send(build(101, "Adem 1", Arrays.asList(new CompteDto(10.0), new CompteDto(5.0))));
         TimeUnit.SECONDS.sleep(2);
@@ -49,7 +49,7 @@ class EmbeddedKafkaIntegrationTest {
     }
 
     @Test
-    public void whenSendingManyMessagesToProducer_thenMessagesReceived()
+    public void CompleteTest()
             throws Exception {
         producer.send(build(101, "Adem 1", Arrays.asList(new CompteDto(10.0), new CompteDto(5.0))));
         producer.send(build(102, "Adem 2", Arrays.asList(new CompteDto(30.0), new CompteDto(20.0))));
